@@ -1,0 +1,25 @@
+# Backend
+target/
+*.log
+
+# Frontend
+node_modules/
+dist/
+
+# IDE
+.idea/
+.vscode/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Environment
+.env
+
+# Maven Wrapper Logs
+.mvn/wrapper/maven-wrapper.jar
+
+# Build
+build/
+out/
