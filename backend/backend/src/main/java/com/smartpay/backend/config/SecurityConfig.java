@@ -26,15 +26,15 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain securityFilterChain(
-            HttpSecurity http) throws Exception {
+            HttpSecurity http
+    ) throws Exception {
 
         http
                 .csrf(csrf -> csrf.disable())
 
                 .cors(cors ->
-                        cors.configurationSource(
-                                corsConfigurationSource()
-                        ))
+                        cors.configurationSource(corsConfigurationSource())
+                )
 
                 .formLogin(form -> form.disable())
 
@@ -43,7 +43,8 @@ public class SecurityConfig {
                 .sessionManagement(session ->
                         session.sessionCreationPolicy(
                                 SessionCreationPolicy.STATELESS
-                        ))
+                        )
+                )
 
                 .authorizeHttpRequests(auth -> auth
 
@@ -73,39 +74,32 @@ public class SecurityConfig {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
 
-        CorsConfiguration configuration =
-                new CorsConfiguration();
+        CorsConfiguration configuration = new CorsConfiguration();
 
-        configuration.setAllowedOrigins(
-                List.of("http://localhost:5173")
-        );
+        configuration.setAllowedOrigins(List.of(
+                "http://localhost:5173",
+                "https://smartpay-five-peach.vercel.app"
+        ));
 
-        configuration.setAllowedMethods(
-                List.of(
-                        "GET",
-                        "POST",
-                        "PUT",
-                        "DELETE",
-                        "OPTIONS"
-                )
-        );
+        configuration.setAllowedMethods(List.of(
+                "GET",
+                "POST",
+                "PUT",
+                "DELETE",
+                "OPTIONS"
+        ));
 
-        configuration.setAllowedHeaders(
-                List.of(
-                        "Authorization",
-                        "Content-Type"
-                )
-        );
+        configuration.setAllowedHeaders(List.of(
+                "Authorization",
+                "Content-Type"
+        ));
 
         configuration.setAllowCredentials(true);
 
         UrlBasedCorsConfigurationSource source =
                 new UrlBasedCorsConfigurationSource();
 
-        source.registerCorsConfiguration(
-                "/**",
-                configuration
-        );
+        source.registerCorsConfiguration("/**", configuration);
 
         return source;
     }
@@ -117,8 +111,8 @@ public class SecurityConfig {
 
     @Bean
     public AuthenticationManager authenticationManager(
-            AuthenticationConfiguration configuration)
-            throws Exception {
+            AuthenticationConfiguration configuration
+    ) throws Exception {
 
         return configuration.getAuthenticationManager();
     }
